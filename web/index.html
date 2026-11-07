@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>SEKA TUNEL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/seka.css">
+</head>
+<body>
+<div id="boot">
+  <div class="boot-logo">SEKA</div>
+  <div class="boot-bar"><i></i></div>
+  <div class="boot-txt">در حال بارگذاری پنل...</div>
+</div>
+
+<div id="app" class="hidden">
+  <!-- Sidebar -->
+  <aside class="side">
+    <div class="brand">
+      <div class="logo-orb"><span>S</span></div>
+      <div>
+        <div class="brand-name">SEKA TUNEL</div>
+        <div class="brand-ver">v1.5.1</div>
+      </div>
+    </div>
+    <nav>
+      <button class="nav active" data-tab="dash"><span class="ic">🏠</span> داشبورد</button>
+      <button class="nav" data-tab="tunnels"><span class="ic">🚇</span> تانل‌ها</button>
+      <button class="nav" data-tab="gaaf"><span class="ic">🛡️</span> GAAF</button>
+      <button class="nav" data-tab="balancer"><span class="ic">⚖️</span> بالانسر</button>
+      <button class="nav" data-tab="nodes"><span class="ic">🛰️</span> نودها</button>
+      <button class="nav" data-tab="test"><span class="ic">📡</span> تست اتصال</button>
+      <button class="nav" data-tab="settings"><span class="ic">⚙️</span> تنظیمات</button>
+    </nav>
+    <div class="side-foot">
+      <div class="pill online">● آنلاین</div>
+      <div class="theme-dots">
+        <i class="td" data-t="dark" title="تیره"></i>
+        <i class="td" data-t="light" title="روشن"></i>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="top">
+      <h1 id="pageTitle">داشبورد</h1>
+      <div class="top-actions">
+        <button class="btn ghost" id="btnRefresh">🔄 بروزرسانی</button>
+        <button class="btn primary" id="btnNewTunnel">＋ تانل جدید</button>
+      </div>
+    </header>
+
+    <!-- DASHBOARD -->
+    <section id="tab-dash" class="tab active">
+      <div class="cards">
+        <div class="card c-orange float">
+          <div class="card-ic">🚇</div>
+          <div class="card-val" id="statTunnels">0</div>
+          <div class="card-lbl">تانل فعال</div>
+        </div>
+        <div class="card c-blue float d1">
+          <div class="card-ic">🛰️</div>
+          <div class="card-val" id="statNodes">0</div>
+          <div class="card-lbl">نود خارج</div>
+        </div>
+        <div class="card c-dark float d2">
+          <div class="card-ic">⚡</div>
+          <div class="card-val" id="statSpeed">—</div>
+          <div class="card-lbl">سرعت تقریبی</div>
+        </div>
+        <div class="card c-white float d3">
+          <div class="card-ic">🛡️</div>
+          <div class="card-val" id="statGaaf">0</div>
+          <div class="card-lbl">تانل GAAF</div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>وضعیت سریع</h3>
+        <div class="status-grid" id="statusGrid">
+          <div class="status-item"><span>سیستم</span><b class="ok">آماده</b></div>
+          <div class="status-item"><span>بالانسر</span><b class="ok">فعال</b></div>
+          <div class="status-item"><span>GAAF</span><b class="ok">آماده</b></div>
+          <div class="status-item"><span>وب‌پنل</span><b class="ok">آنلاین</b></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TUNNELS -->
+    <section id="tab-tunnels" class="tab">
+      <div class="panel">
+        <div class="panel-head">
+          <h3>لیست تانل‌ها</h3>
+          <button class="btn primary sm" onclick="openWizard()">＋ ساخت تانل</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>نام / نوع</th>
+                <th>پورت</th>
+                <th>وضعیت</th>
+                <th>ترنسپورت</th>
+                <th>عملیات</th>
+              </tr>
+            </thead>
+            <tbody id="tunnelBody">
+              <tr><td colspan="5" class="empty">هنوز تانلی ساخته نشده — دکمه ساخت تانل را بزنید</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAAF -->
+    <section id="tab-gaaf" class="tab">
+      <div class="cards">
+        <div class="card c-orange">
+          <div class="card-ic">🔐</div>
+          <div class="card-lbl">SM4-GCM + X25519</div>
+        </div>
+        <div class="card c-blue">
+          <div class="card-ic">🎭</div>
+          <div class="card-lbl">پروفایل ضد فیلتر</div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>پروفایل‌های GAAF</h3>
+        <div class="profile-grid">
+          <button class="prof" data-p="stealth"><b>Stealth</b><span>حداکثر پنهان‌سازی</span></button>
+          <button class="prof active" data-p="balanced"><b>Balanced</b><span>پیشنهادی</span></button>
+          <button class="prof" data-p="speed"><b>Speed</b><span>حداکثر سرعت</span></button>
+          <button class="prof" data-p="gaming"><b>Gaming</b><span>تأخیر خیلی کم</span></button>
+        </div>
+        <div class="hint-box">
+          GAAF از پدینگ تطبیقی، keepalive هوشمند و در صورت وجود چند نود از مسیر چندگانه استفاده می‌کند تا هم فیلتر را سخت‌تر دور بزند و هم سرعت را بالا نگه دارد.
+        </div>
+      </div>
+    </section>
+
+    <!-- BALANCER -->
+    <section id="tab-balancer" class="tab">
+      <div class="panel">
+        <div class="panel-head">
+          <h3>استخرها (Pools)</h3>
+          <button class="btn primary sm" id="btnNewPool">＋ استخر جدید</button>
+        </div>
+        <div id="poolList" class="node-list">
+          <div class="empty">استخری تعریف نشده</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NODES -->
+    <section id="tab-nodes" class="tab">
+      <div class="panel">
+        <div class="panel-head">
+          <h3>نودهای خارج</h3>
+          <button class="btn primary sm" id="btnNewNode">＋ نود جدید</button>
+        </div>
+        <div id="nodeList" class="node-list">
+          <div class="empty">نودی ثبت نشده — نود اضافه کنید تا بالانسر کار کند</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEST -->
+    <section id="tab-test" class="tab">
+      <div class="panel center">
+        <h3>تست اتصال دو سروره</h3>
+        <p class="muted">یک لینک تست بسازید و روی سرور خارج اجرا کنید.</p>
+        <button class="btn primary lg" id="btnTest">شروع تست</button>
+        <pre id="testOut" class="out hidden"></pre>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="tab-settings" class="tab">
+      <div class="panel">
+        <h3>تنظیمات پنل</h3>
+        <label>زبان</label>
+        <div class="row">
+          <button class="btn" data-lang="fa">فارسی</button>
+          <button class="btn" data-lang="en">English</button>
+        </div>
+        <label style="margin-top:16px">تم رنگی</label>
+        <div class="row">
+          <button class="btn" data-theme="dark">تیره</button>
+          <button class="btn" data-theme="light">روشن</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Wizard Modal -->
+<div id="wizard" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>ساخت تانل جدید</h3>
+      <button class="x" onclick="closeWizard()">×</button>
+    </div>
+    <div class="steps">
+      <i class="on">1</i><i>2</i><i>3</i><i>4</i>
+    </div>
+    <div id="wizBody">
+      <label>نوع تانل</label>
+      <div class="choice">
+        <button class="ch on" data-v="rev">Reverse<br><small>خارج → ایران (پیشنهادی)</small></button>
+        <button class="ch" data-v="dir">Direct<br><small>ایران → خارج</small></button>
+        <button class="ch" data-v="gaaf">GAAF<br><small>پروتکل اختصاصی</small></button>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn ghost" onclick="closeWizard()">انصراف</button>
+      <button class="btn primary" id="wizNext">ادامه</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+<script src="js/seka.js"></script>
+</body>
+</html>
