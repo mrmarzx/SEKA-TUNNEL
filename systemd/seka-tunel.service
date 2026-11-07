@@ -1,0 +1,14 @@
+[Unit]
+Description=SEKA TUNEL - Tunnel & Port-Forward Manager
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/bin/seka-tunel apply
+ExecReload=/usr/local/bin/seka-tunel apply
+WorkingDirectory=/etc/seka-tunel
+
+[Install]
+WantedBy=multi-user.target
